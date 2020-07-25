@@ -1,0 +1,5 @@
+This folder describes what each file in the folder means, and what/how it was captured, and any other important imformation.
+
+- IronclawWireless_Startup_x: Captures that were done when the Icue was started (the mouse wasn't moved or touched). This is the initialization, when Icue starts communicating with the mouse and getting things like firmware info and whatnot.
+- IronclawWireless_While_Icue_Open_Rainbow x: Captures that were done after Icue was started, and the mouse was lighting up it's LEDs in the 'rainbow' mode. Useful for seeing how Icue sends LED data to the mouse
+- IronclawWireless_While_Icue_Open_Color_Change_All_1: Capture that was done when specific LEDs (the logo, scroll, and front) was changing at different colors. See (Findings.md)[../Findings.md] to know more about that process.
