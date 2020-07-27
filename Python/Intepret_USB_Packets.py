@@ -133,7 +133,7 @@ def analyze_rgb_colors():
 
 if __name__ == '__main__':
     # Change this to whichever analyzer you
-    program_to_run = 'match_differnt_programs'
+    program_to_run = 'color'
 
     if program_to_run == 'color':
         # Program to load a Wireshark JSON output with only color data ( by starting wireshark sniffing with another mouse while Icue is running

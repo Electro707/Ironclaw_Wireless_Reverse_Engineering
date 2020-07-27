@@ -1,19 +1,32 @@
-This file describes my findings so far (they're not perfect)..
+This file describes my findings so far. This document is WPI (I wouldn't bet my life on it), but it's a start on analyzing the protocol to at least get started.
 
 ### NOTE: All numbers inside a coding tag (for example `08 01` are in hexadecimal)
 
-## Outgoing Packet
-The first byte for when the host sends out a command to the mouse is `08`, while the mouse's response is `00`. Doesn't matter if the host is reading or writing to the device, i've yet got to a packet where there's a different first byte.
+## First byte:
+- `08` - A data packet from the host to the mouse
+- `00` - A data packet from the mouse to the host
 
-All packets that are sent are 64-bits long with padded zeros at the end. For the rest of this document, I will not show the trailing zeros.
+## Second Byte:
+It seems that the second byte is for choosing which command to send (at least from the host to the mouse). 
+- `08 01` - Send setting to
+- `08 02` - Read setting???
+- `08 05` - ???
+- `08 06` - Change something related to Lightning
+- `08 08` - ???
+- `08 09` - ???
+- `08 0d` - ???
 
-## Firmware version
-If the following command is sent out to the mouse: `08 02 13`, then the mouse will respond with the following packet: 
+## Send Setting To (08 01):
+- `08 01 07 00 xx` - Change Angle snapping, where xx is for enable or disable angle snapping (0 or 1)
+- `08 01 (21-23 & 1e) 00 xx xx` - Change DPI setting. See the "Changing DPI Settings" section
 
-`00 02 00 XX YY ZZ`
+# Read Setting (08 02):
+- `08 02 13` - Read the firmware version, in which the mouse will respond with 
+    - `00 02 00 XX YY ZZ`, Where XX, YY, and ZZ are the version number in hex, corresponding to the sub-version. For example, if firmware version is 1.16.107, we expect XX to be 0x01, YY to be 0x10, and ZZ to be 0x6B.
 
-Where XX, YY, and ZZ are the version number in hex, corresponding to the sub-version. For example, if firmware version is 1.16.107, we expect XX to be 0x01, YY to be 0x10, and ZZ to be 0x6B.
 
+# Deeper info (or info I haven't seperated into individual bytes)
+    
 ## Changing device polling speed
 The following command must be sent by the host to change the polling rate:
 `08 01 01 00 XX`, where XX is:
